@@ -65,11 +65,11 @@ echo "done"
 SPIGOT_TOOL={"https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"}
 
 echo -n "-----> Installing Minecraft $minecraft_version... "
-if echo "$minecraft_type" | grep -q 'vanilla';
+if echo "$minecraft_type" | grep -q 'vanilla'; then
   minecraft_url={"https://launcher.mojang.com/mc/game/$minecraft_version/server/$minecraft_uuid/server.jar"}
   curl -o minecraft.jar -s -L $minecraft_url
   mv minecraft.jar $BUILD_DIR/minecraft.jar
-elif echo "$minecraft_type" | grep -q 'spigot';
+elif echo "$minecraft_type" | grep -q 'spigot'; then
   curl -o BuildTools.jar -s -L ${SPIGOT_TOOL}
   git config --global --unset core.autocrlf
   java -jar BuildTools.jar --rev $minecraft_version
