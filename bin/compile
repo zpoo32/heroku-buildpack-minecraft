@@ -73,12 +73,10 @@ elif echo "$minecraft_type" | grep -q 'spigot'; then
   echo lol
   curl -o BuildTools.jar -s -L ${SPIGOT_TOOL}
   echo wot
-  git config --global --unset core.autocrlf
-  echo m8
   java -jar BuildTools.jar --rev $minecraft_version
-  echo seriously
+  echo m8
   mv spigot-$minecraft_version $BUILD_DIR/minecraft.jar
-  echo hmm
+  echo lol
 else echo "$minecraft_type" | grep -q 'other';
   curl -o minecraft.jar -s -L $minecraft_url
   mv minecraft.jar $BUILD_DIR/minecraft.jar
