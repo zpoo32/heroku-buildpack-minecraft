@@ -66,7 +66,7 @@ SPIGOT_TOOL={"https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuil
 
 echo -n "-----> Installing Minecraft $minecraft_version... "
 if echo "$minecraft_type" | grep -q 'vanilla'; then
-  minecraft_url={"https://launcher.mojang.com/mc/game/"$minecraft_version"/server/"$minecraft_uuid"/server.jar"}
+  minecraft_url={"https://launcher.mojang.com/v1/objects/"$minecraft_uuid"/server.jar"}
   curl -o minecraft.jar -s -L $minecraft_url
   mv minecraft.jar $BUILD_DIR/minecraft.jar
 elif echo "$minecraft_type" | grep -q 'spigot'; then
