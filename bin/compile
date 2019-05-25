@@ -65,7 +65,9 @@ echo "done"
 echo -n "-----> Installing Minecraft $minecraft_version... "
 curl -o minecraft.jar -s -L $minecraft_url
 mv minecraft.jar $BUILD_DIR/minecraft.jar
-echo 'eula=true' > $BUILD_Dir/eula.txt
+echo "done"
+echo "Accepting EULA"
+echo 'eula=true' >> $BUILD_Dir/eula.txt
 echo "done"
 
 mkdir -p $BUILD_DIR/bin
