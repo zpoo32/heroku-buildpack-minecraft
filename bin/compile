@@ -69,7 +69,7 @@ if echo "$minecraft_type" | grep -q 'vanilla'; then
 else if echo "$minecraft_type" | grep -q 'spigot'; then
   curl -o BuildTools.jar -s -L $SPIGOT_TOOL
   git config --global --unset core.autocrlf
-  java -jar BuildTools.jar --rev $minecraft_version n
+  java -jar BuildTools.jar --rev $minecraft_version
   mv spigot-$minecraft_version $BUILD_DIR/minecraft.jar
 else echo "$minecraft_type" | grep -q 'other'; then
   curl -o minecraft.jar -s -L $minecraft_url
