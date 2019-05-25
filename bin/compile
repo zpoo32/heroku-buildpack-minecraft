@@ -51,7 +51,6 @@ export CPPPATH="\$INCLUDE_PATH"
 export PKG_CONFIG_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:\$HOME/.apt/usr/lib/i386-linux-gnu/pkgconfig:\$HOME/.apt/usr/lib/pkgconfig:\$PKG_CONFIG_PATH"
 export PYTHONPATH="\$HOME/.apt/usr/lib/python2.7/dist-packages"
 export SCREENDIR="\$HOME/.apt/var/run/screen"
-export SPIGOT_TOOL="https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
 EOF
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
@@ -63,11 +62,15 @@ curl --silent -o ngrok.zip -L "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable
 unzip ngrok.zip -d $BUILD_DIR/bin > /dev/null 2>&1
 echo "done"
 
+SPIGOT_TOOL={"https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"}
+
 echo -n "-----> Installing Minecraft $minecraft_version... "
 if echo "$minecraft_type" | grep -q 'vanilla'; then
-  minecraft_url="https://launcher.mojang.com/mc/game/$minecraft_version/server/$minecraft_uuid/server.jar"
+  minecraft_url={"https://launcher.mojang.com/mc/game/$minecraft_version/server/$minecraft_uuid/server.jar"}
+  curl -o minecraft.jar -s -L $minecraft_url
+  mv minecraft.jar $BUILD_DIR/minecraft.jar
 else if echo "$minecraft_type" | grep -q 'spigot'; then
-  curl -o BuildTools.jar -s -L $SPIGOT_TOOL
+  curl -o BuildTools.jar -s -L ${SPIGOT_TOOL}
   git config --global --unset core.autocrlf
   java -jar BuildTools.jar --rev $minecraft_version
   mv spigot-$minecraft_version $BUILD_DIR/minecraft.jar
